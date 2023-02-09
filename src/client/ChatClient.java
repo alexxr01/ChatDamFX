@@ -34,7 +34,7 @@ import javafx.stage.Stage;
 public class ChatClient implements Chateable {
 	
 	private final int SERVER_PORT = 9999;
-	private String SERVER_ADDRESS = "localhost"; //"192.168.10.194";
+	private String SERVER_ADDRESS = ""; //"192.168.10.194";
 	private UdpChatClient udpChatClientTo;
 	private UdpChatClient udpChatClientFrom;
 	private ArrayList<UdpChatClient> udpChatClients;
@@ -56,62 +56,40 @@ public class ChatClient implements Chateable {
 
     @FXML
     void conectarServidor(ActionEvent event) {
-    	this.SERVER_ADDRESS = introducirIp.getText();
+    	ChatClient chatClient = new ChatClient();
     	
-    	if (this.SERVER_ADDRESS.length() > 5) {
-    		try {
-			    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/vistas/listausuarios.fxml"));
-			    Parent root1 = (Parent) fxmlLoader.load();
-			    Stage stage = new Stage();
-			    stage.setTitle("Lista de usuarios");
-			    stage.setScene(new Scene(root1));  
-			    stage.show();
-			} catch (Exception e) {
-				System.out.println("Error al cargar la ventana de usuarios");
-				e.printStackTrace();
-			}
-		}
+    	chatClient.SERVER_ADDRESS = introducirIp.getText();
+    	chatClient.nickName = introducirUsuario.getText();
     	
-    	/*
-    	if (this.socket != null) {
-    		try {
-			    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/vistas/listausuarios.fxml"));
-			    Parent root1 = (Parent) fxmlLoader.load();
-			    Stage stage = new Stage();
-			    stage.setTitle("Lista de usuarios");
-			    stage.setScene(new Scene(root1));  
-			    stage.show();
-			} catch (Exception e) {
-				System.out.println("Error al cargar la ventana de usuarios");
-				e.printStackTrace();
-			}    		
-		} else if (this.socket == null) {
-			mensajeError();
-			return;
-		} */
-    }
-	
-	public static void main(String[] args) {
-		Scanner sc = new Scanner(System.in);
-
-		ChatClient chatClient = new ChatClient();
-
-		System.out.print("Introduzca su nombre:");
-		chatClient.nickName = sc.next();
-
-		if(chatClient.getUdpClients(chatClient.nickName)) {	
+    	if(chatClient.getUdpClients(chatClient.nickName)) {
 			try {
 				chatClient.socketUDP = new DatagramSocket(chatClient.udpChatClientFrom.getUdpPort());
+				// Cargamos la segunda ventana, donde se mostrarán
+				// todos los usuarios disponibles.
+				try {
+				    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/vistas/listausuarios.fxml"));
+				    Parent root1 = (Parent) fxmlLoader.load();
+				    Stage stage = new Stage();
+				    stage.setTitle("Lista de usuarios");
+				    stage.setScene(new Scene(root1));  
+				    stage.show();
+				} catch (Exception e) {
+					System.out.println("Error al cargar la ventana de usuarios");
+					e.printStackTrace();
+				}
+				
 			} catch (SocketException e) {
 				e.printStackTrace();
 			}
 
 			new ThreadChatClient(chatClient).start();
+			/*
 			chatClient.menu();
 			System.out.println("Gracias por usar el servicio!");
+			*/
 		}
-
-	}
+    }
+	
 	public void menu() {
 		Scanner sc = new Scanner(System.in);
 		int option=0;		
