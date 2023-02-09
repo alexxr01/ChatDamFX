@@ -33,7 +33,7 @@ import javafx.stage.Stage;
 
 //TODO: revisar, optimizar y documentar el código (JavaDoc)
 public class ChatClient implements Chateable {
-	
+
 	private final int SERVER_PORT = 9999;
 	private String SERVER_ADDRESS = ""; //"192.168.10.194";
 	private UdpChatClient udpChatClientTo;
@@ -46,37 +46,37 @@ public class ChatClient implements Chateable {
 	private DatagramSocket socketUDP;
 	private Message messageSent;
 	private Message messageReceived;
-	
+
 	// Necesario para "principal.fxml"
 	@FXML
-    private Button botonConectar;
-    @FXML
-    private TextField introducirIp;
-    @FXML
-    private TextField introducirUsuario;
-    // Necesario para "listausuarios.fxml"
-    @FXML
-    private ListView<ChatClient> listaUsuariosDisponibles;
-    // Acciones a realizar al dar click en el boton "Conectar" de "principal.fxml"
-    @FXML
-    void conectarServidor(ActionEvent event) {
-    	ChatClient chatClient = new ChatClient();
-    	
-    	chatClient.SERVER_ADDRESS = introducirIp.getText();
-    	chatClient.nickName = introducirUsuario.getText();
-    	
-    	if(chatClient.getUdpClients(chatClient.nickName)) {
+	private Button botonConectar;
+	@FXML
+	private TextField introducirIp;
+	@FXML
+	private TextField introducirUsuario;
+	// Necesario para "listausuarios.fxml"
+	@FXML
+	private ListView<ChatClient> listaUsuariosDisponibles;
+	// Acciones a realizar al dar click en el boton "Conectar" de "principal.fxml"
+	@FXML
+	void conectarServidor(ActionEvent event) {
+		ChatClient chatClient = new ChatClient();
+
+		chatClient.SERVER_ADDRESS = introducirIp.getText();
+		chatClient.nickName = introducirUsuario.getText();
+
+		if(chatClient.getUdpClients(chatClient.nickName)) {
 			try {
 				chatClient.socketUDP = new DatagramSocket(chatClient.udpChatClientFrom.getUdpPort());
 				// Cargamos la segunda ventana, donde se mostrarán
 				// todos los usuarios disponibles.
 				try {
-				    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/vistas/listausuarios.fxml"));
-				    Parent root1 = (Parent) fxmlLoader.load();
-				    Stage stage = new Stage();
-				    stage.setTitle("Lista de usuarios");
-				    stage.setScene(new Scene(root1));  
-				    stage.show();
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/vistas/listausuarios.fxml"));
+					Parent root1 = (Parent) fxmlLoader.load();
+					Stage stage = new Stage();
+					stage.setTitle("Lista de usuarios");
+					stage.setScene(new Scene(root1));  
+					stage.show();
 				} catch (Exception e) {
 					System.out.println("Error al cargar la ventana de usuarios");
 					e.printStackTrace();
@@ -86,12 +86,12 @@ public class ChatClient implements Chateable {
 			}
 			new ThreadChatClient(chatClient).start();
 		}
-    	// Refrescamos la lista de usuarios conectados
-    	//listaUsuariosDisponibles.refresh();
-    	//listaUsuariosDisponibles.getItems().add(chatClient);
-    	
-    }
-	
+		// Refrescamos la lista de usuarios conectados
+		//listaUsuariosDisponibles.refresh();
+		//listaUsuariosDisponibles.getItems().add(chatClient);
+
+	}
+
 	public void menu() {
 		Scanner sc = new Scanner(System.in);
 		int option=0;		
@@ -112,7 +112,7 @@ public class ChatClient implements Chateable {
 
 				System.out.println("> Usuarios en el chat");
 				//se muestra la lista de clientes de chat con los que conversar
-				
+
 				//se ha modificado el código anterior para mostrar todos los clientes
 				//de chat con distinto nombre, esto permite probar el código
 				//con la misma IP y mismo equipo
@@ -325,16 +325,16 @@ public class ChatClient implements Chateable {
 			e.printStackTrace();
 		}   
 	}
-	
+
 	@FXML
 	private void mensajeError() {
-	    Alert alert = new Alert(Alert.AlertType.ERROR);
-	    alert.setHeaderText(null);
-	    alert.setTitle("Error");
-	    alert.setContentText("La dirección IP [" + SERVER_ADDRESS + "] no conecta con ningún servidor.");
-	    alert.showAndWait();
+		Alert alert = new Alert(Alert.AlertType.ERROR);
+		alert.setHeaderText(null);
+		alert.setTitle("Error");
+		alert.setContentText("La dirección IP [" + SERVER_ADDRESS + "] no conecta con ningún servidor.");
+		alert.showAndWait();
 	}
-	
+
 	public UdpChatClient getUdpChatClientTo() {
 		return this.udpChatClientTo;
 	}
