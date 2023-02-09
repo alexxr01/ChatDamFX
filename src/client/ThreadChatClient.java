@@ -2,12 +2,14 @@ package client;
 
 import java.util.Scanner;
 
-public class ThreadChatClient extends Thread{
+public class ThreadChatClient extends Thread {
 	private ChatClient chatClient;
+	
 	public ThreadChatClient(ChatClient chatClient) {
 		this.chatClient = chatClient;
 		this.setName("Chat de " + chatClient.getUdpChatClientFrom().getNickName());
 	}
+	
 	@Override
 	public void run() {
 		String message="";

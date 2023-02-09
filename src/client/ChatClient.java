@@ -27,6 +27,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
@@ -46,14 +47,17 @@ public class ChatClient implements Chateable {
 	private Message messageSent;
 	private Message messageReceived;
 	
-	// Métodos y propiedades generadas por y para la interfaz JavaFX
+	// Necesario para "principal.fxml"
 	@FXML
     private Button botonConectar;
     @FXML
     private TextField introducirIp;
     @FXML
     private TextField introducirUsuario;
-
+    // Necesario para "listausuarios.fxml"
+    @FXML
+    private ListView<?> listaClientesDisponibles;
+    // Acciones a realizar al dar click en el boton "Conectar" de "principal.fxml"
     @FXML
     void conectarServidor(ActionEvent event) {
     	ChatClient chatClient = new ChatClient();
@@ -88,12 +92,15 @@ public class ChatClient implements Chateable {
 			System.out.println("Gracias por usar el servicio!");
 			*/
 		}
+    	
+    	listaClientesDisponibles.getItems().add(textito);
+    	
     }
 	
 	public void menu() {
 		Scanner sc = new Scanner(System.in);
 		int option=0;		
-		//hay que actualizar la lista de clientes del chat
+		// Hay que actualizar la lista de clientes del chat
 		this.getUdpClients(this.nickName);
 		while(option!=4) {
 			this.clearScreen();
@@ -105,7 +112,7 @@ public class ChatClient implements Chateable {
 			//y 4. salir (finaliza el programa)
 			switch(option) {
 			case 1:
-				//hay que actualizar la lista de clientes del chat
+				// Hay que actualizar la lista de clientes del chat
 				this.getUdpClients(this.nickName);
 
 				System.out.println("> Usuarios en el chat");
