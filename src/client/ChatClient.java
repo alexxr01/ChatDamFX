@@ -13,18 +13,23 @@ import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.Socket;
 import java.net.SocketException;
-import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.Random;
 import java.util.Scanner;
 import util.Chateable;
 import util.Message;
+// Importaciones necesarias para javafx
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
 //TODO: revisar, optimizar y documentar el código (JavaDoc)
 public class ChatClient implements Chateable {
-	private final int SERVER_PORT=9999;
-	private final String SERVER_ADDRESS="localhost";//"192.168.10.194";
+	
+	private final int SERVER_PORT = 9999;
+	private String SERVER_ADDRESS = null; //"192.168.10.194";
 	private UdpChatClient udpChatClientTo;
 	private UdpChatClient udpChatClientFrom;
 	private ArrayList<UdpChatClient> udpChatClients;
@@ -35,6 +40,18 @@ public class ChatClient implements Chateable {
 	private DatagramSocket socketUDP;
 	private Message messageSent;
 	private Message messageReceived;
+	
+	// Métodos y propiedades generadas por y para la interfaz JavaFX
+	@FXML
+    private Button botonConectar;
+    @FXML
+    private TextField introducirIp;
+
+    @FXML
+    void conectarServidor(ActionEvent event) {
+    	SERVER_ADDRESS = introducirIp.getText();
+    }
+	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 
@@ -289,6 +306,16 @@ public class ChatClient implements Chateable {
 			e.printStackTrace();
 		}   
 	}
+	
+	@FXML
+	private void mensajeError(ActionEvent event) {
+	    Alert alert = new Alert(Alert.AlertType.ERROR);
+	    alert.setHeaderText(null);
+	    alert.setTitle("Error");
+	    alert.setContentText("La dirección IP [" + SERVER_ADDRESS + "] no conecta con ningún servidor.");
+	    alert.showAndWait();
+	}
+	
 	public UdpChatClient getUdpChatClientTo() {
 		return this.udpChatClientTo;
 	}

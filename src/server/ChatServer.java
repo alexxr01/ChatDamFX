@@ -33,7 +33,7 @@ public class ChatServer implements Chateable {
 		this.udpChatClients = udpChatClients;
 	}
 	public void start() {
-		System.out.println("Servidor...");
+		System.out.println("Servidor iniciado...");
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
