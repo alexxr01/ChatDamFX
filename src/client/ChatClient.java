@@ -56,7 +56,7 @@ public class ChatClient implements Chateable {
     private TextField introducirUsuario;
     // Necesario para "listausuarios.fxml"
     @FXML
-    private ListView<?> listaClientesDisponibles;
+    private ListView<ChatClient> listaUsuariosDisponibles;
     // Acciones a realizar al dar click en el boton "Conectar" de "principal.fxml"
     @FXML
     void conectarServidor(ActionEvent event) {
@@ -81,19 +81,14 @@ public class ChatClient implements Chateable {
 					System.out.println("Error al cargar la ventana de usuarios");
 					e.printStackTrace();
 				}
-				
 			} catch (SocketException e) {
 				e.printStackTrace();
 			}
-
 			new ThreadChatClient(chatClient).start();
-			/*
-			chatClient.menu();
-			System.out.println("Gracias por usar el servicio!");
-			*/
 		}
-    	
-    	listaClientesDisponibles.getItems().add(textito);
+    	// Refrescamos la lista de usuarios conectados
+    	//listaUsuariosDisponibles.refresh();
+    	//listaUsuariosDisponibles.getItems().add(chatClient);
     	
     }
 	

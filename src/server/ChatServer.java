@@ -33,14 +33,13 @@ public class ChatServer implements Chateable {
 		this.udpChatClients = udpChatClients;
 	}
 	public void start() {
-		System.out.println("Servidor iniciado...");
+		System.out.println("Servidor inicidado en: " + serverSocket.getLocalSocketAddress());
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while(!stopServer) {
 					try {
 						Socket socket = serverSocket.accept();
-						System.out.println("Nueva conexion desde: " + socket.getLocalAddress());
 						ThreadChatServer hilo = new ThreadChatServer(ChatServer.this, socket);
 						hilo.start();
 					} catch (IOException e) {
