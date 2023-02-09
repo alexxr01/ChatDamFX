@@ -6,15 +6,15 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="224.0" prefWidth="482.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ChatClient">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="280.0" prefWidth="489.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ChatClient">
    <children>
       <Text layoutX="76.0" layoutY="57.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Conectar a un servidor:">
          <font>
             <Font name="System Bold" size="25.0" />
          </font>
       </Text>
-      <TextField fx:id="introducirIp" layoutX="219.0" layoutY="112.0" />
-      <Button fx:id="botonConectar" layoutX="203.0" layoutY="155.0" mnemonicParsing="false" onAction="#conectarServidor" text="Conectar" />
-      <Text layoutX="123.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Direccion IP:" />
+      <TextField fx:id="introducirIp" layoutX="150.0" layoutY="109.0" prefHeight="24.0" prefWidth="189.0" promptText="Dirección IP del servidor" />
+      <Button fx:id="botonConectar" layoutX="203.0" layoutY="220.0" mnemonicParsing="false" onAction="#conectarServidor" text="Conectar" />
+      <TextField fx:id="introducirUsuario" layoutX="150.0" layoutY="158.0" prefHeight="24.0" prefWidth="189.0" promptText="Nombre de usuario" />
    </children>
 </AnchorPane>

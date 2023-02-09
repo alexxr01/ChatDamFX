@@ -18,6 +18,7 @@ import java.util.Enumeration;
 import java.util.Scanner;
 import util.Chateable;
 import util.Message;
+
 // Importaciones necesarias para javafx
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -27,14 +28,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 //TODO: revisar, optimizar y documentar el código (JavaDoc)
 public class ChatClient implements Chateable {
 	
 	private final int SERVER_PORT = 9999;
-	private String SERVER_ADDRESS = null; //"192.168.10.194";
+	private String SERVER_ADDRESS = "localhost"; //"192.168.10.194";
 	private UdpChatClient udpChatClientTo;
 	private UdpChatClient udpChatClientFrom;
 	private ArrayList<UdpChatClient> udpChatClients;
@@ -51,15 +51,15 @@ public class ChatClient implements Chateable {
     private Button botonConectar;
     @FXML
     private TextField introducirIp;
+    @FXML
+    private TextField introducirUsuario;
 
     @FXML
     void conectarServidor(ActionEvent event) {
-    	SERVER_ADDRESS = introducirIp.getText();
-    	if (this.socket == null) {
-    		mensajeError();
-			return;
-		} else {
-			try {
+    	this.SERVER_ADDRESS = introducirIp.getText();
+    	
+    	if (this.SERVER_ADDRESS.length() > 5) {
+    		try {
 			    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/vistas/listausuarios.fxml"));
 			    Parent root1 = (Parent) fxmlLoader.load();
 			    Stage stage = new Stage();
@@ -71,6 +71,24 @@ public class ChatClient implements Chateable {
 				e.printStackTrace();
 			}
 		}
+    	
+    	/*
+    	if (this.socket != null) {
+    		try {
+			    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/vistas/listausuarios.fxml"));
+			    Parent root1 = (Parent) fxmlLoader.load();
+			    Stage stage = new Stage();
+			    stage.setTitle("Lista de usuarios");
+			    stage.setScene(new Scene(root1));  
+			    stage.show();
+			} catch (Exception e) {
+				System.out.println("Error al cargar la ventana de usuarios");
+				e.printStackTrace();
+			}    		
+		} else if (this.socket == null) {
+			mensajeError();
+			return;
+		} */
     }
 	
 	public static void main(String[] args) {
