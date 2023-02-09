@@ -13,8 +13,10 @@ import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.Socket;
 import java.net.SocketException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 import util.Chateable;
 import util.Message;
@@ -23,6 +25,7 @@ import util.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -54,16 +57,13 @@ public class ChatClient implements Chateable {
 	private TextField introducirIp;
 	@FXML
 	private TextField introducirUsuario;
-	// Necesario para "listausuarios.fxml"
-	@FXML
-	private ListView<?> listaUsuariosDisponibles;
 	// Acciones a realizar al dar click en el boton "Conectar" de "principal.fxml"
 	@FXML
 	void conectarServidor(ActionEvent event) {
 		ChatClient chatClient = new ChatClient();
 
-		chatClient.SERVER_ADDRESS = introducirIp.getText();
-		chatClient.nickName = introducirUsuario.getText();
+		this.SERVER_ADDRESS = introducirIp.getText();
+		this.nickName = introducirUsuario.getText();
 
 		if(chatClient.getUdpClients(chatClient.nickName)) {
 			try {
@@ -72,10 +72,10 @@ public class ChatClient implements Chateable {
 				// todos los usuarios disponibles.
 				try {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/vistas/listausuarios.fxml"));
-					Parent root1 = (Parent) fxmlLoader.load();
+					Parent ventana = (Parent) fxmlLoader.load();
 					Stage stage = new Stage();
 					stage.setTitle("Lista de usuarios");
-					stage.setScene(new Scene(root1));  
+					stage.setScene(new Scene(ventana));  
 					stage.show();
 				} catch (Exception e) {
 					System.out.println("Error al cargar la ventana de usuarios");
@@ -86,12 +86,8 @@ public class ChatClient implements Chateable {
 			}
 			new ThreadChatClient(chatClient).start();
 		}
-		// Refrescamos la lista de usuarios conectados
-		//listaUsuariosDisponibles.refresh();
-		//listaUsuariosDisponibles.getItems().add(chatClient);
-
 	}
-
+	
 	public void menu() {
 		Scanner sc = new Scanner(System.in);
 		int option=0;		
@@ -125,7 +121,7 @@ public class ChatClient implements Chateable {
 				}
 				break;
 			case 2:
-				if(this.udpChatClients.size()>1) { 
+				if(this.udpChatClients.size()>1) {
 					System.out.print("Introduzca el nombre del usuario con el conversar:");
 					String nickname = sc.next();
 					this.udpChatClientTo = this.udpChatClients.stream()
@@ -326,15 +322,6 @@ public class ChatClient implements Chateable {
 		}   
 	}
 
-	@FXML
-	private void mensajeError() {
-		Alert alert = new Alert(Alert.AlertType.ERROR);
-		alert.setHeaderText(null);
-		alert.setTitle("Error");
-		alert.setContentText("La dirección IP [" + SERVER_ADDRESS + "] no conecta con ningún servidor.");
-		alert.showAndWait();
-	}
-
 	public UdpChatClient getUdpChatClientTo() {
 		return this.udpChatClientTo;
 	}
@@ -346,5 +333,8 @@ public class ChatClient implements Chateable {
 	}
 	public Message getMessageReceived() {
 		return this.messageReceived;
+	}
+	public String getNickName() {
+		return this.nickName;
 	}
 }
