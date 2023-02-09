@@ -21,9 +21,14 @@ import util.Message;
 // Importaciones necesarias para javafx
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
 
 //TODO: revisar, optimizar y documentar el código (JavaDoc)
 public class ChatClient implements Chateable {
@@ -50,6 +55,22 @@ public class ChatClient implements Chateable {
     @FXML
     void conectarServidor(ActionEvent event) {
     	SERVER_ADDRESS = introducirIp.getText();
+    	if (this.socket == null) {
+    		mensajeError();
+			return;
+		} else {
+			try {
+			    FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/vistas/listausuarios.fxml"));
+			    Parent root1 = (Parent) fxmlLoader.load();
+			    Stage stage = new Stage();
+			    stage.setTitle("Lista de usuarios");
+			    stage.setScene(new Scene(root1));  
+			    stage.show();
+			} catch (Exception e) {
+				System.out.println("Error al cargar la ventana de usuarios");
+				e.printStackTrace();
+			}
+		}
     }
 	
 	public static void main(String[] args) {
@@ -308,7 +329,7 @@ public class ChatClient implements Chateable {
 	}
 	
 	@FXML
-	private void mensajeError(ActionEvent event) {
+	private void mensajeError() {
 	    Alert alert = new Alert(Alert.AlertType.ERROR);
 	    alert.setHeaderText(null);
 	    alert.setTitle("Error");
