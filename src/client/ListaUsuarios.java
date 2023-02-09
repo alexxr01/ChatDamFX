@@ -16,6 +16,9 @@ public class ListaUsuarios implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		ChatClient chatClient = new ChatClient();
 		
-		listaUsuariosDisponibles.getItems().add(chatClient.getNickName());
+		do {
+			listaUsuariosDisponibles.getItems().add(chatClient.getNickName());
+		} while (chatClient != null);
+		
 	}
 }
