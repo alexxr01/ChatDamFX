@@ -56,7 +56,7 @@ public class ChatClient implements Chateable {
 	private TextField introducirUsuario;
 	// Necesario para "listausuarios.fxml"
 	@FXML
-	private ListView<ChatClient> listaUsuariosDisponibles;
+	private ListView<?> listaUsuariosDisponibles;
 	// Acciones a realizar al dar click en el boton "Conectar" de "principal.fxml"
 	@FXML
 	void conectarServidor(ActionEvent event) {
