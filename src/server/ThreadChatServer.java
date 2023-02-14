@@ -25,7 +25,6 @@ public class ThreadChatServer extends Thread {
 			this.fEntrada = new ObjectInputStream(socket.getInputStream());
 			this.fSalida = new ObjectOutputStream(socket.getOutputStream());
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

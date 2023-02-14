@@ -2,7 +2,8 @@ module ChatDamFX {
 	requires javafx.controls;
 	requires javafx.fxml;
 	requires javafx.graphics;
-	
+	requires javafx.base;
+
 	opens application to javafx.graphics, javafx.fxml;
 	opens client to javafx.graphics, javafx.fxml;
 	opens server to javafx.graphics, javafx.fxml;

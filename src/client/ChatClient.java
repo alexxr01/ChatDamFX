@@ -13,10 +13,8 @@ import java.net.InterfaceAddress;
 import java.net.NetworkInterface;
 import java.net.Socket;
 import java.net.SocketException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.ResourceBundle;
 import java.util.Scanner;
 import util.Chateable;
 import util.Message;
@@ -25,13 +23,12 @@ import util.Message;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 //TODO: revisar, optimizar y documentar el código (JavaDoc)
@@ -57,13 +54,18 @@ public class ChatClient implements Chateable {
 	private TextField introducirIp;
 	@FXML
 	private TextField introducirUsuario;
+	// Necesario para "listausuarios.fxml"
+	@FXML
+    private ListView<String> listaUsuariosDisponibles;
+	@FXML
+    private Text nombreUsuario;
 	// Acciones a realizar al dar click en el boton "Conectar" de "principal.fxml"
 	@FXML
 	void conectarServidor(ActionEvent event) {
 		ChatClient chatClient = new ChatClient();
 
-		this.SERVER_ADDRESS = introducirIp.getText();
-		this.nickName = introducirUsuario.getText();
+		chatClient.SERVER_ADDRESS = "localhost";//introducirIp.getText();
+		chatClient.nickName = "usuario"; // introducirUsuario.getText();
 
 		if(chatClient.getUdpClients(chatClient.nickName)) {
 			try {
@@ -71,7 +73,7 @@ public class ChatClient implements Chateable {
 				// Cargamos la segunda ventana, donde se mostrarán
 				// todos los usuarios disponibles.
 				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/vistas/listausuarios.fxml"));
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/listausuarios.fxml"));
 					Parent ventana = (Parent) fxmlLoader.load();
 					Stage stage = new Stage();
 					stage.setTitle("Lista de usuarios");
@@ -85,7 +87,7 @@ public class ChatClient implements Chateable {
 				e.printStackTrace();
 			}
 			new ThreadChatClient(chatClient).start();
-		}
+		}		
 	}
 	
 	public void menu() {

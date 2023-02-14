@@ -14,5 +14,6 @@
       </Text>
       <Text layoutX="62.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Elige la persona con la que quieras chatear:" />
       <ListView fx:id="listaUsuariosDisponibles" layoutX="38.0" layoutY="115.0" prefHeight="384.0" prefWidth="339.0" />
+      <Text fx:id="nombreUsuario" layoutX="243.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario" />
    </children>
 </AnchorPane>
