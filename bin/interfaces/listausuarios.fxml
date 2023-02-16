@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="528.0" prefWidth="410.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.ListaUsuarios">
+   <children>
+      <Text layoutX="61.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chats">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Text>
+      <Text layoutX="62.0" layoutY="90.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Elige la persona con la que quieras chatear:" />
+      <ListView fx:id="listaUsuariosDisponibles" layoutX="38.0" layoutY="115.0" prefHeight="384.0" prefWidth="339.0" />
+      <Text fx:id="nombreUsuario" layoutX="243.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Usuario" />
+   </children>
+</AnchorPane>

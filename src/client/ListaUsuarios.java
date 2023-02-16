@@ -22,8 +22,6 @@ public class ListaUsuarios implements Initializable {
 	public void initialize(URL arg0, ResourceBundle arg1) {
 		nombreUsuario.setText("Eres: pc1");
 		
-	
-		
 		this.listaUsuariosDisponibles.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
             @Override public ListCell<String> call(ListView<String> list) {
                 return new ItemCell();
