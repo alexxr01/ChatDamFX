@@ -14,7 +14,7 @@ public class ItemCell extends ListCell<String> {
               this.setGraphic(null);
 		} else {
 			// Generamos un array de avatares
-			String[] avatares = new String[10];
+			String[] avatares = new String[7];
 			// Damos lugar a los avatares
 			{
 				avatares[0] = "avatar1.png";

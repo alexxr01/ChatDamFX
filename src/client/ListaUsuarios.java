@@ -12,6 +12,7 @@ import javafx.scene.text.Text;
 import javafx.util.Callback;
 
 public class ListaUsuarios implements Initializable {
+	ChatClient chatClient = new ChatClient();
 
     @FXML
     private ListView<String> listaUsuariosDisponibles;
@@ -30,6 +31,12 @@ public class ListaUsuarios implements Initializable {
 		
 		this.listaUsuariosDisponibles.getItems().add("pc1");
 		this.listaUsuariosDisponibles.getItems().add("pc2");
+		this.listaUsuariosDisponibles.getItems().add("pc3");
+		this.listaUsuariosDisponibles.getItems().add("pc4");
+		this.listaUsuariosDisponibles.getItems().add("pc5");
+		this.listaUsuariosDisponibles.getItems().add("pc6");
+		this.listaUsuariosDisponibles.getItems().add("pc7");
+		this.listaUsuariosDisponibles.getItems().add("pc8");
 //		do {
 //			listaUsuariosDisponibles.getItems().add(chatClient.getNickName());
 //		} while (chatClient != null);
