@@ -4,43 +4,69 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import adapters.ItemCell;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseButton;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class ListaUsuarios implements Initializable {
 	ChatClient chatClient = new ChatClient();
 
-    @FXML
-    private ListView<String> listaUsuariosDisponibles;
-    @FXML
-    private Text nombreUsuario;
+	@FXML
+	private ListView<String> listaUsuariosDisponibles;
+	@FXML
+	private Text nombreUsuario;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		nombreUsuario.setText("Eres: pc1");
-		
+		nombreUsuario.setText("Eres: " + chatClient.getNickName());
+
 		this.listaUsuariosDisponibles.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
-            @Override public ListCell<String> call(ListView<String> list) {
-                return new ItemCell();
-            }
-        });        
-		
+			@Override public ListCell<String> call(ListView<String> list) {
+				return new ItemCell();
+			}
+		});
+
 		this.listaUsuariosDisponibles.getItems().add("pc1");
 		this.listaUsuariosDisponibles.getItems().add("pc2");
-		this.listaUsuariosDisponibles.getItems().add("pc3");
-		this.listaUsuariosDisponibles.getItems().add("pc4");
-		this.listaUsuariosDisponibles.getItems().add("pc5");
-		this.listaUsuariosDisponibles.getItems().add("pc6");
-		this.listaUsuariosDisponibles.getItems().add("pc7");
-		this.listaUsuariosDisponibles.getItems().add("pc8");
-//		do {
-//			listaUsuariosDisponibles.getItems().add(chatClient.getNickName());
-//		} while (chatClient != null);
-		
+
+		// Detectamos el doble click y abrimos otra sub pestaña
+		// esta será el chat para comenzar a hablar.
+		listaUsuariosDisponibles.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				// Queremos que el click se a el izquierdo, y que se pulse 2 veces
+				if(event.getButton() == MouseButton.PRIMARY && event.getClickCount() == 2) {
+					// Llamamos al método que se encargará de ello.
+					comenzarChat();
+				}    
+			}
+		});
 	}
-	
+
+	public void comenzarChat() {
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/chat.fxml"));
+			Parent ventana = (Parent) fxmlLoader.load();
+			Stage stage = new Stage();
+			stage.setTitle("Chat con usuario");
+			stage.setScene(new Scene(ventana));  
+			stage.show();
+		} catch (Exception e) {
+			System.out.println("Error al cargar la ventana para chatear!");
+			e.printStackTrace();
+		}
+	}
+
 }

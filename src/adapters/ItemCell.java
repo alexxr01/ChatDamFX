@@ -8,7 +8,7 @@ public class ItemCell extends ListCell<String> {
 
 	@Override
 	protected void updateItem(String name, boolean empty) {
-		super.updateItem(name,empty);
+		super.updateItem(name, empty);
 		if(empty || name == null) {
 			  this.setText(null);
               this.setGraphic(null);

@@ -337,6 +337,6 @@ public class ChatClient implements Chateable {
 		return this.messageReceived;
 	}
 	public String getNickName() {
-		return this.nickName;
+		return this.nickName = nickName;
 	}
 }
