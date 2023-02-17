@@ -64,8 +64,8 @@ public class ChatClient implements Chateable {
 	void conectarServidor(ActionEvent event) {
 		ChatClient chatClient = new ChatClient();
 
-		chatClient.SERVER_ADDRESS = "localhost";//introducirIp.getText();
-		chatClient.nickName = "usuario"; // introducirUsuario.getText();
+		chatClient.SERVER_ADDRESS = introducirIp.getText();
+		chatClient.nickName = introducirUsuario.getText();
 
 		if(chatClient.getUdpClients(chatClient.nickName)) {
 			try {

@@ -5,16 +5,19 @@ import java.time.LocalDateTime;
 
 //TODO: revisar, optimizar y documentar el código (JavaDoc)
 public class UdpChatClient implements Serializable {
+	
 	private static final long serialVersionUID = -4244532618185868835L;
 	private String nickName;
 	private String hostAddress;
 	private int udpPort;
 	private LocalDateTime lastPost;
+	
 	public UdpChatClient(String nickName, String hostAddress) {
 		this.nickName = nickName;
 		this.hostAddress = hostAddress;
 		this.lastPost = LocalDateTime.now();
 	}
+	
 	public String getNickName() {
 		return nickName;
 	}
