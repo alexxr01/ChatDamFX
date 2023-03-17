@@ -65,22 +65,25 @@ public class ChatClient implements Chateable {
 		this.SERVER_ADDRESS = introducirIp.getText();
 		this.nickName = introducirUsuario.getText();
 
+		// Cargamos la segunda ventana, donde se mostrarán
+		// todos los usuarios disponibles.
+		try {
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/listausuarios.fxml"));
+			Parent ventana = (Parent) fxmlLoader.load();
+			ListaUsuarios listaUsuarios = fxmlLoader.getController();
+			listaUsuarios.initData(this);
+			Stage stage = new Stage();
+			stage.setTitle("Lista de usuarios");
+			stage.setScene(new Scene(ventana));
+			stage.show();
+		} catch (Exception e) {
+			System.out.println("Error al cargar la ventana de usuarios");
+			e.printStackTrace();
+		}
+		
 		if(this.getUdpClients(this.getNickName())) {
 			try {
 				this.socketUDP = new DatagramSocket(this.udpChatClientFrom.getUdpPort());
-				// Cargamos la segunda ventana, donde se mostrarán
-				// todos los usuarios disponibles.
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/interfaces/listausuarios.fxml"));
-					Parent ventana = (Parent) fxmlLoader.load();
-					Stage stage = new Stage();
-					stage.setTitle("Lista de usuarios");
-					stage.setScene(new Scene(ventana));
-					stage.show();
-				} catch (Exception e) {
-					System.out.println("Error al cargar la ventana de usuarios");
-					e.printStackTrace();
-				}
 			} catch (SocketException e) {
 				e.printStackTrace();
 			}

@@ -30,19 +30,15 @@ public class ListaUsuarios implements Initializable {
 	@FXML
 	private Text nombreUsuario;
 	
+	private ChatClient chatClient;
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		ChatClient chatClient = new ChatClient();
-		nombreUsuario.setText("Eres: " + chatClient.getNickName().toString());
-
+		
 		this.listaUsuariosDisponibles.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
 			@Override public ListCell<String> call(ListView<String> list) {
 				return new ItemCell();
 			}
 		});
-
-		this.listaUsuariosDisponibles.getItems().add("pc1");
-		this.listaUsuariosDisponibles.getItems().add("pc2");
 
 		// Detectamos el doble click y abrimos otra sub pestaña
 		// esta será el chat para comenzar a hablar.
@@ -56,6 +52,16 @@ public class ListaUsuarios implements Initializable {
 				}    
 			}
 		});
+	}
+	
+	public void initData(ChatClient chatClient) {
+		this.chatClient = chatClient;
+		nombreUsuario.setText("Eres: " + chatClient.getNickName().toString());
+		//es aquí donde tienes que agregar los usuarios que haya para
+		//chatear, deben estar en chatClient, una vez haya conectado con
+		//el servidor
+		this.listaUsuariosDisponibles.getItems().add("pc1");
+		this.listaUsuariosDisponibles.getItems().add("pc2");
 	}
 	
 
