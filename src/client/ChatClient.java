@@ -42,11 +42,11 @@ public class ChatClient implements Chateable {
 	private Socket socket;
 	private ObjectOutputStream fSalida;
 	private ObjectInputStream fEntrada;
-	private String nickName;
+	public String nickName;
 	private DatagramSocket socketUDP;
 	private Message messageSent;
 	private Message messageReceived;
-
+	
 	// Necesario para "principal.fxml"
 	@FXML
 	private Button botonConectar;
@@ -62,14 +62,12 @@ public class ChatClient implements Chateable {
 	// Acciones a realizar al dar click en el boton "Conectar" de "principal.fxml"
 	@FXML
 	void conectarServidor(ActionEvent event) {
-		ChatClient chatClient = new ChatClient();
+		this.SERVER_ADDRESS = introducirIp.getText();
+		this.nickName = introducirUsuario.getText();
 
-		chatClient.SERVER_ADDRESS = introducirIp.getText();
-		chatClient.nickName = introducirUsuario.getText();
-
-		if(chatClient.getUdpClients(chatClient.nickName)) {
+		if(this.getUdpClients(this.getNickName())) {
 			try {
-				chatClient.socketUDP = new DatagramSocket(chatClient.udpChatClientFrom.getUdpPort());
+				this.socketUDP = new DatagramSocket(this.udpChatClientFrom.getUdpPort());
 				// Cargamos la segunda ventana, donde se mostrarán
 				// todos los usuarios disponibles.
 				try {
@@ -77,7 +75,7 @@ public class ChatClient implements Chateable {
 					Parent ventana = (Parent) fxmlLoader.load();
 					Stage stage = new Stage();
 					stage.setTitle("Lista de usuarios");
-					stage.setScene(new Scene(ventana));  
+					stage.setScene(new Scene(ventana));
 					stage.show();
 				} catch (Exception e) {
 					System.out.println("Error al cargar la ventana de usuarios");
@@ -86,10 +84,15 @@ public class ChatClient implements Chateable {
 			} catch (SocketException e) {
 				e.printStackTrace();
 			}
-			new ThreadChatClient(chatClient).start();
+			new ThreadChatClient(this).start();
+			System.out.println("Gracias por usar el servicio!");
 		}		
 	}
 	
+	
+	/*
+	 * Código de Rafa y que estoy usando como referencia
+	 */
 	public void menu() {
 		Scanner sc = new Scanner(System.in);
 		int option=0;		
@@ -124,7 +127,7 @@ public class ChatClient implements Chateable {
 				break;
 			case 2:
 				if(this.udpChatClients.size()>1) {
-					System.out.print("Introduzca el nombre del usuario con el conversar:");
+					System.out.print("Introduzca el nombre del usuario con el que conversar:");
 					String nickname = sc.next();
 					this.udpChatClientTo = this.udpChatClients.stream()
 							.filter(e->e.getNickName().equals(nickname)).findFirst().get();
@@ -337,6 +340,6 @@ public class ChatClient implements Chateable {
 		return this.messageReceived;
 	}
 	public String getNickName() {
-		return this.nickName = nickName;
+		return this.nickName;
 	}
 }

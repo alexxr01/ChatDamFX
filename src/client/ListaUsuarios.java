@@ -1,6 +1,12 @@
 package client;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.DatagramSocket;
+import java.net.Socket;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import adapters.ItemCell;
@@ -10,27 +16,24 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
 public class ListaUsuarios implements Initializable {
-	ChatClient chatClient = new ChatClient();
-
 	@FXML
 	private ListView<String> listaUsuariosDisponibles;
 	@FXML
 	private Text nombreUsuario;
-
+	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		nombreUsuario.setText("Eres: " + chatClient.getNickName());
+		ChatClient chatClient = new ChatClient();
+		nombreUsuario.setText("Eres: " + chatClient.getNickName().toString());
 
 		this.listaUsuariosDisponibles.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
 			@Override public ListCell<String> call(ListView<String> list) {
@@ -54,6 +57,7 @@ public class ListaUsuarios implements Initializable {
 			}
 		});
 	}
+	
 
 	public void comenzarChat() {
 		try {
