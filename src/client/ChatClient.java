@@ -21,6 +21,7 @@ import util.Message;
 
 // Importaciones necesarias para javafx
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -88,10 +89,16 @@ public class ChatClient implements Chateable {
 				e.printStackTrace();
 			}
 			new ThreadChatClient(this).start();
-			System.out.println("Gracias por usar el servicio!");
-		}		
+			System.out.println(this.getNickName().toString() + " has logueado correctamente!");
+		}
+		almacenarUsuarios();
 	}
 	
+	public void almacenarUsuarios() {
+		ArrayList<String> usuarios = new ArrayList<String>();
+		usuarios.add(this.getNickName().toString());
+		System.out.println(usuarios.toString());
+	}
 	
 	/*
 	 * Código de Rafa y que estoy usando como referencia

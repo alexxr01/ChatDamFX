@@ -60,8 +60,8 @@ public class ListaUsuarios implements Initializable {
 		//es aquí donde tienes que agregar los usuarios que haya para
 		//chatear, deben estar en chatClient, una vez haya conectado con
 		//el servidor
-		this.listaUsuariosDisponibles.getItems().add("pc1");
-		this.listaUsuariosDisponibles.getItems().add("pc2");
+		this.listaUsuariosDisponibles.getItems().add(chatClient.getNickName().toString());
+		this.listaUsuariosDisponibles.refresh();
 	}
 	
 
